@@ -25,8 +25,9 @@ def predict(img_file,img_shape=(64,64)):
         model_gender=load_model("files/gender.h5")
     pred_age=model_age.predict(img)
     pred_gender=model_gender.predict(img)
-    del pred_age,pred_gender
-    return label_age[np.argmax(pred_age)]+ " Y, "+label_gender[np.argmax(pred_gender)]
+    result= label_age[np.argmax(pred_age)]+ " Y, "+label_gender[np.argmax(pred_gender)]
+    del pred_age,pred_gender,img_file,img,img_shape
+    return result
 
 
 @app.route('/')
