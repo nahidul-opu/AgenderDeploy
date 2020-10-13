@@ -38,11 +38,11 @@ def predict(image_path,img_shape=(64,64)):
 
 @app.route('/')
 def hello_world():
-    return 'Hello worlds!'
+    return "<h1>Hello World!</h1>"
 
 @app.route('/test')
 def test():
-    return 'Allah help me'
+    return "<h1>Test Successful</h1>"
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -54,25 +54,25 @@ def prediction():
         # check if the post request has the file part
         if 'image_file' not in request.files:
             flash('No file part')
-            return "No File"
+            return "<h1>No File</h1>"
         file = request.files['image_file']
         # if user does not select file, browser also
         # submit an empty part without filename
         if file.filename == '':
             flash('No selected file')
-            return "Empty File"
+            return "<h1>Empty File</h1>"
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             try:
                 image_path=os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 file.save(image_path)
             except:
-                return "Upload Failed"
+                return "<h1>Upload Failed</h1>"
             return predict(image_path)
         else:
-            return "Invalid File"
+            return "<h1>Invalid File</h1>"
     else:
-        return "No File Uploaded"
+        return "<h1>No File Uploaded</h1>"
 
 if __name__ == '__main__':
     app.run(debug=True)
