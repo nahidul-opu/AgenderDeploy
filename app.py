@@ -5,10 +5,11 @@ from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import keras
 
+app = Flask(__name__)
+
 UPLOAD_FOLDER = 'files'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
-app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 model_name_age=os.path.join(app.config['UPLOAD_FOLDER'], "age.h5")
