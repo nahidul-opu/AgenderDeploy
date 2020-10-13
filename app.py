@@ -11,6 +11,14 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+model_name_age=os.path.join(app.config['UPLOAD_FOLDER'], "age.h5")
+print('loading age model from: ' + model_name_age)
+model_age=keras.models.load_model(model_name_age)
+
+model_name_gender=os.path.join(app.config['UPLOAD_FOLDER'], "gender.h5")
+print('loading model from: ' + model_name_gender)
+model_gender=keras.models.load_model(model_name_gender)
+print("Model Loaded")
 
 def predict(image_path,grayscale=True,img_shape=(64,64),channel=1):
     print(image_path)
@@ -71,27 +79,5 @@ def prediction():
     else:
         return "No File Uploaded"
 
-model_name_age=os.path.join(app.config['UPLOAD_FOLDER'], "age.h5")
-print('loading age model from: ' + model_name_age)
-model_age=keras.models.load_model(model_name_age)
-
-model_name_gender=os.path.join(app.config['UPLOAD_FOLDER'], "gender.h5")
-print('loading model from: ' + model_name_gender)
-model_gender=keras.models.load_model(model_name_gender)
-print("Model Loaded")
-
 if __name__ == '__main__':
-    app.run()
-'''
-import sys
-
-
-sys.path.insert(0, os.path.dirname(__file__))
-
-
-def app(environ, start_response):
-    start_response('200 OK', [('Content-Type', 'text/plain')])
-    message = 'It works!\n'
-    version = 'Python v' + sys.version.split()[0] + '\n'
-    response = '\n'.join([message, version])
-    return [response.encode()]'''
+    app.run(debug=True)
