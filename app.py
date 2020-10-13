@@ -32,12 +32,9 @@ def predict(image_path,img_shape=(64,64)):
     print('Predicting')
     global model_age
     global model_gender
-    try:
-        pred_age=model_age.predict(img)
-        pred_gender=model_gender.predict(img)
-        return label_age[np.argmax(pred_age)]+ " Y, "+label_gender[np.argmax(pred_gender)]
-    except:
-        return "Failed"
+    pred_age=model_age.predict(img)
+    pred_gender=model_gender.predict(img)
+    return label_age[np.argmax(pred_age)]+ " Y, "+label_gender[np.argmax(pred_gender)]
 
 @app.route('/')
 def hello_world():
