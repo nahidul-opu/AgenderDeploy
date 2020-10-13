@@ -8,10 +8,8 @@ from PIL import Image
 from io import BytesIO
 
 app = Flask(__name__)
-
-model_age=keras.models.load_model("files/age.h5")
-model_gender=keras.models.load_model("files/gender.h5")
-print("Model Loaded")
+model_age=None
+model_gender=None
 
 def predict(img_file,img_shape=(64,64)):
     print(type(img_file))
@@ -21,6 +19,12 @@ def predict(img_file,img_shape=(64,64)):
     print('image loaded')
     img=img.reshape(-1,img_shape[0],img_shape[1],1)
     print('Predicting')
+    global model_age
+    if model_age is None:   
+        model_age=keras.models.load_model("files/age.h5")
+    global model_gender    
+    if model_gender is None:
+        model_gender=keras.models.load_model("files/gender.h5")
     pred_age=model_age.predict(img)
     pred_gender=model_gender.predict(img)
     return label_age[np.argmax(pred_age)]+ " Y, "+label_gender[np.argmax(pred_gender)]
@@ -50,5 +54,5 @@ def prediction():
     else:
         return "<h1>No File Uploaded</h1>"
 
-if __name__ == '__main__':
+if __name__ == '__main__': 
     app.run(debug=True)
