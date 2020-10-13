@@ -1,9 +1,9 @@
 import os
-from keras.preprocessing.image import load_img
+import keras
+from keras.preprocessing.image import load_img,img_to_array
 import numpy as np
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
-import keras
 
 app = Flask(__name__)
 
@@ -25,10 +25,10 @@ def predict(image_path,img_shape=(64,64)):
     print(image_path)
     label_age=["0-2", "4-6", "8-13", "15-20", "25-32", "38-43", "48-53", "60-100"]
     label_gender=["Female","Male"]
-    img_file = load_img(image_path, grayscale=True)
+    img_file = load_img(image_path, grayscale=True, target_size=img_shape)
     img = img_to_array(img_file)
     print('image loaded')
-    img=img.reshape(-1,img_shape[0],img_shape[1],channel)
+    img=img.reshape(-1,img_shape[0],img_shape[1],1)
     print('Predicting')
     global model_age
     global model_gender
