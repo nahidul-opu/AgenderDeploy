@@ -13,7 +13,7 @@ UPLOAD_FOLDER = 'files'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-'''
+
 model_name_age=os.path.join(app.config['UPLOAD_FOLDER'], "age.h5")
 print('loading age model from: ' + model_name_age)
 model_age=keras.models.load_model(model_name_age)
@@ -22,7 +22,7 @@ model_name_gender=os.path.join(app.config['UPLOAD_FOLDER'], "gender.h5")
 print('loading model from: ' + model_name_gender)
 model_gender=keras.models.load_model(model_name_gender)
 print("Model Loaded")
-'''
+
 def predict(img_file,img_shape=(64,64)):
     print(type(img_file))
     label_age=["0-2", "4-6", "8-13", "15-20", "25-32", "38-43", "48-53", "60-100"]
@@ -32,11 +32,9 @@ def predict(img_file,img_shape=(64,64)):
     print('image loaded')
     img=img.reshape(-1,img_shape[0],img_shape[1],1)
     print('Predicting')
-    model_name_age=os.path.join(app.config['UPLOAD_FOLDER'], "age.h5")
-    model_age=keras.models.load_model(model_name_age)
-    model_name_gender=os.path.join(app.config['UPLOAD_FOLDER'], "gender.h5")
-    model_gender=keras.models.load_model(model_name_gender)
+    global model_age
     pred_age=model_age.predict(img)
+    global model_gender
     pred_gender=model_gender.predict(img)
     return label_age[np.argmax(pred_age)]+ " Y, "+label_gender[np.argmax(pred_gender)]
 
