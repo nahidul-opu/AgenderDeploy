@@ -1,5 +1,5 @@
 import os
-from tensorflow.keras.models import load_model
+from keras.models import load_model
 from keras.preprocessing.image import load_img,img_to_array
 import numpy as np
 from flask import Flask, flash, request, redirect, url_for
