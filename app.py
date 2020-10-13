@@ -1,5 +1,5 @@
 import os
-import cv2
+from keras.preprocessing.image import load_img
 import numpy as np
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
@@ -21,16 +21,13 @@ print('loading model from: ' + model_name_gender)
 model_gender=keras.models.load_model(model_name_gender)
 print("Model Loaded")
 
-def predict(image_path,grayscale=True,img_shape=(64,64),channel=1):
+def predict(image_path,img_shape=(64,64)):
     print(image_path)
     label_age=["0-2", "4-6", "8-13", "15-20", "25-32", "38-43", "48-53", "60-100"]
     label_gender=["Female","Male"]
-    img=cv2.imread(image_path)
-    if grayscale:
-        img=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    img_file = load_img(image_path, grayscale=True)
+    img = img_to_array(img_file)
     print('image loaded')
-    img=cv2.resize(img,img_shape)
-    print('resized')
     img=img.reshape(-1,img_shape[0],img_shape[1],channel)
     print('Predicting')
     global model_age
