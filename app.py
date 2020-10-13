@@ -8,8 +8,8 @@ from PIL import Image
 from io import BytesIO
 
 app = Flask(__name__)
-model_age=load_model("files/age.h5")
-model_gender=load_model("files/gender.h5")
+model_age=None
+model_gender=None
 
 label_age=["0-2", "4-6", "8-13", "15-20", "25-32", "38-43", "48-53", "60-100"]
 label_gender=["Female","Male"]
