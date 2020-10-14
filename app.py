@@ -25,8 +25,6 @@ def predict(img_file,img_shape=(64,64)):
         model_gender=load_model("files/gender.h5")
     pred_age=model_age.predict(img)
     pred_gender=model_gender.predict(img)
-    print(np.argmax(pred_age))
-    print(np.argmax(pred_gender))
     result= label_age[np.argmax(pred_age)]+ " Y, "+label_gender[np.argmax(pred_gender)]
     del pred_age,pred_gender,img_file,img,img_shape
     return result
@@ -49,7 +47,7 @@ def prediction():
             flash('No file part')
             return "<h1>No File</h1>"
         file = request.files['image_file'].read()
-        img = Image.open(BytesIO(file)).convert('LA')
+        img = Image.open(BytesIO(file)).convert('L')
         del file
         img = img.resize((64,64), Image.ANTIALIAS)
         return predict(img)
