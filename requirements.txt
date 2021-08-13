@@ -1,0 +1,9 @@
+pickle-mixin
+mahotas
+scikit-image
+scikit-learn
+joblib
+imageio
+scipy
+pandas
+glob
