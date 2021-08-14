@@ -1,5 +1,5 @@
 pickle-mixin
-opencv-contrib-python
+opencv-contrib-python==4.4.0
 mahotas
 scikit-image
 scikit-learn
