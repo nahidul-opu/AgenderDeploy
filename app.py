@@ -53,6 +53,7 @@ def predictionML():
         with open('output/model.pkl', 'rb') as fid:
             model = pickle.load(fid)
         image = cv2.imread("flower.png")
+        image= ((image+1)*255/2).astype('uint8')
         img = cv2.resize(image,(224,224))
         img = utils.process_image(img)
         cv2.imwrite("mrf.png",img)
