@@ -21,40 +21,28 @@ def test():
     return "<h1>Test Successful</h1>"
 
 
-@app.route('/flower', methods=['POST','GET'])
-def prediction():
-    if request.method == 'POST':
-        if 'image_file' not in request.files:
-            flash('No file part')
-            return "<h1>No File</h1>"
-        file = request.files['image_file'].read()
-        img = Image.open(BytesIO(file))
-        img = img.convert('RGB')
-        img = img.resize((224,224))
-        img.save("flower.png")
-        del file
-        return predict(img)
-    else:
-        return "<h1>No File Uploaded</h1>"
-
 @app.route('/flowerML', methods=['POST','GET'])
 def predictionML():
     if request.method == 'POST':
         if 'image_file' not in request.files:
             flash('No file part')
             return "<h1>No File</h1>"
-        file = request.files['image_file'].read()
+        img_str = request.files['image_file'].read()
+        nparr = np.fromstring(img_str, np.uint8)
+        image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        '''
         img = Image.open(BytesIO(file))
         img = img.convert('RGB')
         img = img.resize((224,224))
-        img.save("flower.png")
-        del file,img
+        img.save("flower.png")'''
+        #del file,img
         classes = ['daisy', 'dandelion', 'rose', 'sunflower', 'windflower']
         with open('output/model.pkl', 'rb') as fid:
             model = pickle.load(fid)
-        image = cv2.imread("flower.png")
-        image= ((image+1)*255/2).astype('uint8')
+        #image = cv2.imread("flower.png")
+        #image= ((image+1)*255/2).astype('uint8')
         img = cv2.resize(image,(224,224))
+        cv2.imwrite("flower.png",img)
         img = utils.process_image(img)
         cv2.imwrite("mrf.png",img)
         features = Features.extract_features(img)
