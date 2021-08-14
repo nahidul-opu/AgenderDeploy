@@ -1,4 +1,5 @@
 pickle-mixin
+opencv-contrib-python
 mahotas
 scikit-image
 scikit-learn

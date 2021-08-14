@@ -1,7 +1,4 @@
 import os
-from keras.models import load_model
-import tensorflow as tf
-from keras.preprocessing.image import load_img,img_to_array
 import numpy as np
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
@@ -13,21 +10,6 @@ import pickle
 import cv2
 
 app = Flask(__name__)
-model = None
-labels = ['daisy', 'dandelion', 'rose', 'sunflower', 'tulip']
-def predict(img_file):
-	img = img_to_array(img_file)
-	img = tf.cast(img, tf.float32) / 255.0
-	img = np.array(img)
-	print(img.shape)
-	img = img.reshape(-1,224,224,3)
-	global model
-	if model is None:   
-	    model=load_model("files/flower_model.h5")
-	pred = model.predict(img)
-	result = labels[np.argmax(pred)]
-	return result
-
 
 @app.route('/')
 def hello_world():
