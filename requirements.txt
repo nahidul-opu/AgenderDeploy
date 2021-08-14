@@ -1,5 +1,5 @@
 pickle-mixin
-opencv-python-headless==4.2.0.32
+opencv-contrib-python
 mahotas
 scikit-image
 scikit-learn
