@@ -1,1 +1,1 @@
-web: gunicorn app:aiagender
+web: gunicorn app:app
