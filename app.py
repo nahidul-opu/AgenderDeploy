@@ -6,7 +6,7 @@ from PIL import Image
 from io import BytesIO
 import utils
 import Features
-import pickle
+import joblib
 import cv2
 
 app = Flask(__name__)
@@ -36,9 +36,11 @@ def predictionML():
         img = img.resize((224,224))
         img.save("flower.png")'''
         #del file,img
-        classes = ['daisy', 'dandelion', 'rose', 'sunflower', 'windflower']
-        with open('output/model.pkl', 'rb') as fid:
-            model = pickle.load(fid)
+        classes = ['Bluebell', 'Buttercup', 'Colts Foot', 'Cowslip', 'Crocus',
+       'Daffodil', 'Daisy', 'Dandelalion', 'Fritillary', 'Iris',
+       'Lily Valley', 'Pansy', 'Snowdrop', 'Sunflower', 'Tigerlily',
+       'Tulip', 'Windflower']
+        model = joblib.load('output/model.joblib')
         #image = cv2.imread("flower.png")
         #image= ((image+1)*255/2).astype('uint8')
         img = cv2.resize(image,(224,224))
