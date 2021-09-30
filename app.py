@@ -39,7 +39,7 @@ def predictionML():
         classes = ['Bluebell', 'Buttercup', 'Colts Foot', 'Cowslip', 'Crocus',
        'Daffodil', 'Daisy', 'Dandelalion', 'Fritillary', 'Iris',
        'Lily Valley', 'Pansy', 'Snowdrop', 'Sunflower', 'Tigerlily',
-       'Tulip', 'Windflower']
+       'Tulip', 'Windflower', 'rose']
         model = joblib.load('output/model.joblib')
         #image = cv2.imread("flower.png")
         #image= ((image+1)*255/2).astype('uint8')
